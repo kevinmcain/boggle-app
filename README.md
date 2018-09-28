@@ -26,6 +26,7 @@ Things you may want to cover:
 $rails new boggle-app --webpack=react
 $cd boggle-app
 
+Per, https://www.npmjs.com/package/react-on-rails
 Added the react_on_rails gem to Gemfile
 gem 'react_on_rails', '11.1.4' # Use the exact gem version to match npm version
 
