@@ -5,8 +5,6 @@ import CubeContainer from '../components/CubeContainer';
 const Boggle = ({ name, updateName }) => (
 
       <div className="container">
-        <br />
-        <h2>Boggle</h2>
         <CubeContainer />
       </div>
 );
