@@ -21,4 +21,18 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* Steps I took to create this project
+
+$rails new boggle-app --webpack=react
+$cd boggle-app
+
+Added the react_on_rails gem to Gemfile
+gem 'react_on_rails', '11.1.4' # Use the exact gem version to match npm version
+
+$bundle install
+
+committed changes
+
+rails generate react_on_rails:install --redux --node
+
+rails server - thing runs!
