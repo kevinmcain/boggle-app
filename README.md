@@ -37,3 +37,9 @@ committed changes
 rails generate react_on_rails:install --redux --node
 
 rails server - thing runs!
+
+
+Assumptions:
+
+1. Though recursion is not allowed in production, it is okay for this challenge
+2. Words using a given letter more than once renders a negative response
