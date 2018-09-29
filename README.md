@@ -38,8 +38,12 @@ rails generate react_on_rails:install --redux --node
 
 rails server - thing runs!
 
+follow test tutorial here
+https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
+
 
 Assumptions:
 
 1. Though recursion is not allowed in production, it is okay for this challenge
 2. Words using a given letter more than once renders a negative response
+
