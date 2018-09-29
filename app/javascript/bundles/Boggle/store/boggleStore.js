@@ -1,8 +1,12 @@
 import { createStore } from 'redux';
-import boggleReducer from '../reducers/boggleReducer';
+import { combineReducers } from 'redux'
+import word from '../reducers/wordReducer';
+import gameBoard from '../reducers/gameBoardReducer';
+
+const rootReducer = combineReducers({word, gameBoard});
 
 const configureStore = (railsProps) => (
-  createStore(boggleReducer, railsProps)
+  createStore(rootReducer, railsProps)
 );
 
 export default configureStore;

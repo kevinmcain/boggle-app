@@ -1,10 +1,16 @@
 import React from 'react';
+import * as actions from '../actions/boggleActionCreators';
+import { connect } from 'react-redux';
 
 class Cube extends React.Component {
 
     state = { backgroundColor: 'black' };
 
 	toggleActive = () => {
+
+	    var updatedWord = this.props.word + this.props.letter;
+        console.log(updatedWord);
+        this.props.dispatch(actions.updateWord(updatedWord));
         this.setState((prevState) => ({
             backgroundColor: prevState.backgroundColor !== 'black' ? 'black' : 'blue'
         }));
@@ -29,9 +35,19 @@ class Cube extends React.Component {
         };
 
     return (
-        <button style={buttonStyle} onClick={this.toggleActive}>{this.props.letter}</button>
+        <button style={buttonStyle} onClick={() => this.toggleActive()}>{this.props.letter}</button>
     );
   }
 }
 
-export default Cube;
+
+// returning an object with course property means that you will be able to access that courses property above
+// by calling this.props.course. The state param represents the state that's within the redux store.
+// what is ownProps?
+function mapStateToProps(state, ownProps){
+    return {
+        word: state.word
+    };
+}
+
+export default connect(mapStateToProps)(Cube);

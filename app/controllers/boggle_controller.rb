@@ -4,6 +4,6 @@ class BoggleController < ApplicationController
   layout "boggle"
 
   def index
-    @boggle_props = { name: "Stranger" }
+    @boggle_props = { word: "" }
   end
 end
