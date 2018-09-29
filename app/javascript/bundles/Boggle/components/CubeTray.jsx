@@ -20,7 +20,7 @@ class CubeTray extends React.Component {
         var url = 'http://localhost:3000/input';
         var data = {
             word: this.props.word,
-            gameBoard: this.props.gameBoard
+            gameMatrix: this.props.gameMatrix
         };
 
         fetch(url, {
@@ -35,33 +35,24 @@ class CubeTray extends React.Component {
 
     };
 
-
 	generateGame = () => {
 
         let cubes = [];
-        let game = new Array();
-        let cubeIndex = 0;
+        let gameMatrix = new Array();
 
         for (let i=0; i < BOGGLE_CUBES_US_LETTER_DISTRIBUTION.length / 4; i++) {
-              game[i] = new Array();
+              gameMatrix[i] = new Array();
               for (let j=0; j < BOGGLE_CUBES_US_LETTER_DISTRIBUTION.length / 4; j++) {
 
+                const cubeIndex = (i*(BOGGLE_CUBES_US_LETTER_DISTRIBUTION.length / 4))+j;
                 const randomInt = this.getRandomInt(BOGGLE_CUBES_US_LETTER_DISTRIBUTION[0].length);
                 const letter = BOGGLE_CUBES_US_LETTER_DISTRIBUTION[cubeIndex][randomInt];
 
-                cubes.push(
-                  <span key={cubeIndex}>
-                    <Cube letter={letter}/>
-                  </span>
-                );
-
-                game[i][j] = letter;
-                cubeIndex++;
+                gameMatrix[i][j] = letter;
               }
           }
 
-
-        this.props.updateGameBoard(cubes);
+        this.props.updateGameMatrix(gameMatrix);
     };
 
     getRandomInt(max) {
@@ -70,49 +61,51 @@ class CubeTray extends React.Component {
 
 	render() {
 
-
-        let cubes = this.props.gameBoard;
+        let gameMatrix = this.props.gameMatrix;
 
     return (
-    <div>
-        <button type="button" onClick={() => this.generateGame()}> generate new game </button>
+        <div>
+            <button type="button" onClick={() => this.generateGame()}> generate new game </button>
 
-        <table style={tableStyle}>
-            <tbody>
-                <tr>
-                    <td>
-                        {cubes.slice(0,4)}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {cubes.slice(4,8)}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {cubes.slice(8,12)}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {cubes.slice(12,16)}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table style={tableStyle}>
+                <tbody>
+                    {
+                        gameMatrix.map( function( row, i ) {
+
+                            const rows = row.map( function( letter, j ) {
+
+                                return (
+
+                                        <td key={j}>
+                                            <span key={(i*row.length)+j}>
+                                                <Cube letter={letter}/>
+                                            </span>
+                                        </td>
+                                )
+                            } );
 
 
-        <label htmlFor="name">
-        Word:
-        </label>
-        <input
-        id="name"
-        type="text"
-        value={this.props.word}
-        onChange={(e) => this.props.updateWord(e.target.value)} />
-        <button type="button" onClick={(e) => this.validateWord(e)}>validate word</button>
-    </div>
+                            return (
+                                <tr key={i}>
+                                    {rows}
+                                </tr>
+
+                            )
+
+                        } )
+                    }
+                </tbody>
+            </table>
+            <label htmlFor="name">
+            Word:
+            </label>
+            <input
+            id="name"
+            type="text"
+            value={this.props.word}
+            onChange={(e) => this.props.updateWord(e.target.value)} />
+            <button type="button" onClick={(e) => this.validateWord(e)}>validate word</button>
+        </div>
 
     );
   }
