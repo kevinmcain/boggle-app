@@ -16,8 +16,22 @@ class CubeTray extends React.Component {
 
     validateWord = (e) => {
 
-        console.log(e);
-        // todo call api
+        // todo this may not be the best choice for browser support
+        var url = 'http://localhost:3000/input';
+        var data = {
+            word: this.props.word,
+            gameBoard: this.props.gameBoard
+        };
+
+        fetch(url, {
+          method: 'POST', // or 'PUT'
+          body: JSON.stringify(data), // data can be `string` or {object}!
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+        .then(response => console.log('Success:', JSON.stringify(response)))
+        .catch(error => console.error('Error:', error));
 
     };
 
