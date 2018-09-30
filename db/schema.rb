@@ -12,17 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2018_09_29_204715) do
 
-  create_table "game_words", force: :cascade do |t|
-    t.string "game_hash"
-    t.string "word"
-    t.string "language"
-    t.boolean "valid"
-    t.integer "game_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_game_words_on_game_id"
-  end
-
   create_table "games", force: :cascade do |t|
     t.string "json_data"
     t.string "game_hash"
