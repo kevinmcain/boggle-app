@@ -22,6 +22,14 @@ RSpec.describe 'Words API' do
       end
     end
 
+    context 'when word not in game' do
+      before { post "/games/#{game_id}/words", params: { name: 'WORDNOTINGAME' } }
+
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
+      end
+    end
+
     context 'when an invalid request' do
       before { post "/games/#{game_id}/words", params: {} }
 

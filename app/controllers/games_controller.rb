@@ -1,6 +1,6 @@
 # app/controllers/games_controller.rb
 class GamesController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token # todo is this needed when using from app?
   before_action :set_game, only: [:show, :update, :destroy]
 
   # POST /games
