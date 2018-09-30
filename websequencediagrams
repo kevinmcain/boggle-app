@@ -1,0 +1,62 @@
+#### Game generation
+
+    participant React Client
+    participant Rails Server
+    participant Sqlite3 DB
+
+
+    note over React Client, Rails Server
+
+       Client generates a new game
+       and sends the matrix & hash
+       to the server
+    end note
+
+    React Client -> Rails Server : POST /games
+
+
+
+    note over Rails Server, Sqlite3 DB
+
+       Checks for previously saved game
+       Returns game Id for new or existing
+    end note
+
+    Rails Server -> Sqlite3 DB : Find/Save Game
+    Sqlite3 DB -> Rails Server : Returns Game Id
+
+    Rails Server -> React Client : Game Id to Redux Store
+
+
+#### Word Validation
+
+
+    participant React Client
+    participant Rails Server
+    participant Sqlite3 DB
+
+    note over React Client, Rails Server
+
+       User provides word input by
+       typing or clicking & clicks
+       button to validate word
+    end note
+
+    React Client -> Rails Server : POST /games/{id}/words
+
+    note over Rails Server, Sqlite3 DB
+
+       Checks for previously saved word
+       for game or validates word against
+       matrix from db using find_word algorithm
+    end note
+
+    Rails Server -> Sqlite3 DB : Finds or Saves Word
+
+    Rails Server -> React Client : HTTP Status 201 | 400
+
+    note over React Client, Rails Server
+
+       201 created for word found in game
+       400 bad request for word NOT found in game
+    end note
