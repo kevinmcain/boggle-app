@@ -17,15 +17,14 @@ class CubeTray extends React.Component {
     validateWord = (e) => {
 
         // todo this may not be the best choice for browser support
-        var url = 'http://localhost:3000/input';
+        var url = 'http://localhost:3000/games/' + this.props.gameId + '/words';
         var data = {
-            word: this.props.word,
-            gameMatrix: this.props.gameMatrix
+            name: this.props.word
         };
 
         fetch(url, {
-          method: 'POST', // or 'PUT'
-          body: JSON.stringify(data), // data can be `string` or {object}!
+          method: 'POST',
+          body: JSON.stringify(data),
           headers:{
             'Content-Type': 'application/json'
           }
@@ -34,6 +33,33 @@ class CubeTray extends React.Component {
         .catch(error => console.error('Error:', error));
 
     };
+
+    postGame = (gameMatrix) => {
+
+        const gameHash = [].concat.apply([], gameMatrix).join('');
+
+        // todo this may not be the best choice for browser support
+        var url = 'http://localhost:3000/games';
+
+        var data = {
+            game_hash: gameHash,
+            json_data: JSON.stringify(gameMatrix)
+        };
+
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+        .then(response => {
+            console.log('Success:', JSON.stringify(response));
+            this.props.updateGameId(response.id);
+        })
+        .catch(error => console.error('Error:', error));
+
+    }
 
 	generateGame = () => {
 
@@ -53,6 +79,8 @@ class CubeTray extends React.Component {
           }
 
         this.props.updateGameMatrix(gameMatrix);
+
+        this.postGame(gameMatrix);
     };
 
     getRandomInt(max) {
