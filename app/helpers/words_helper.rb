@@ -58,61 +58,67 @@ module WordsHelper
         puts "in_bounds_and_not_visited #{i} #{j}"
         visited[i][j] = true
 
+        letter = get_letter(word, word_index)
 
-        #puts "comparing: #{gameMatrix[i+1][j+1]} to #{word[word_index]}"
+        # if function above returns Qu, we need to skip to the next index
+        if letter == 'Qu'
+            word_index = word_index+1
+        end
 
-        if in_bounds_and_not_visited(gameMatrix, i+1, j+1, visited) && gameMatrix[i+1][j+1] == word[word_index]
+        #puts "comparing: #{gameMatrix[i+1][j+1]} to #{letter}"
 
-            puts "found letter: #{word[word_index]} i: #{i} j: #{j}"
+        if in_bounds_and_not_visited(gameMatrix, i+1, j+1, visited) && gameMatrix[i+1][j+1] == letter
+
+            puts "found letter: #{letter} i: #{i} j: #{j}"
             found = search_word(word, word_index+1, gameMatrix, i+1, j+1, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i, j+1, visited) && gameMatrix[i][j+1] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i, j+1, visited) && gameMatrix[i][j+1] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i} j: #{j+1}"
+            puts "found letter: #{letter} i: #{i} j: #{j+1}"
             found = search_word(word, word_index+1, gameMatrix, i, j+1, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i-1, j+1, visited) && gameMatrix[i-1][j+1] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i-1, j+1, visited) && gameMatrix[i-1][j+1] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i-1} j: #{j+1}"
+            puts "found letter: #{letter} i: #{i-1} j: #{j+1}"
             found = search_word(word, word_index+1, gameMatrix, i-1, j+1, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i+1, j, visited) && gameMatrix[i+1][j] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i+1, j, visited) && gameMatrix[i+1][j] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i+1} j: #{j}"
+            puts "found letter: #{letter} i: #{i+1} j: #{j}"
             found = search_word(word, word_index+1, gameMatrix, i+1, j, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i+1, j-1, visited) && gameMatrix[i+1][j-1] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i+1, j-1, visited) && gameMatrix[i+1][j-1] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i+1} j: #{j-1}"
+            puts "found letter: #{letter} i: #{i+1} j: #{j-1}"
             found = search_word(word, word_index+1, gameMatrix, i+1, j-1, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i, j-1, visited) && gameMatrix[i][j-1] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i, j-1, visited) && gameMatrix[i][j-1] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i} j: #{j-1}"
+            puts "found letter: #{letter} i: #{i} j: #{j-1}"
             found = search_word(word, word_index+1, gameMatrix, i, j-1, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i-1, j-1, visited) && gameMatrix[i-1][j-1] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i-1, j-1, visited) && gameMatrix[i-1][j-1] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i-1} j: #{j-1}"
+            puts "found letter: #{letter} i: #{i-1} j: #{j-1}"
             found = search_word(word, word_index+1, gameMatrix, i-1, j-1, visited)
 
         end
 
-        if in_bounds_and_not_visited(gameMatrix, i-1, j, visited) && gameMatrix[i-1][j] == word[word_index]
+        if in_bounds_and_not_visited(gameMatrix, i-1, j, visited) && gameMatrix[i-1][j] == letter
 
-            puts "found letter: #{word[word_index]} i: #{i-1} j: #{j}"
+            puts "found letter: #{letter} i: #{i-1} j: #{j}"
             found = search_word(word, word_index+1, gameMatrix, i-1, j, visited)
 
         end
@@ -126,6 +132,14 @@ module WordsHelper
 
     end
 
+    # last minute hack to account for Qu
+    def get_letter(word, index)
+        if word[index] == 'Q' && index+1 < word.length && word[index+1] == 'U'
+            return 'Qu'
+        end
+
+        return word[index]
+    end
 
     def in_bounds_and_not_visited(gameMatrix, i, j, visited)
         if i >= 0 && i < gameMatrix.length && j >= 0 && j < gameMatrix[0].length && !visited[i][j]
