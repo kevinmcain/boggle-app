@@ -8,8 +8,7 @@
     note over React Client, Rails Server
 
        Client generates a new game
-       and sends the matrix & hash
-       to the server
+       Sends the matrix & hash to server
     end note
 
     React Client -> Rails Server : POST /games
@@ -18,7 +17,7 @@
 
     note over Rails Server, Sqlite3 DB
 
-       Checks for previously saved game
+       Checks for previously created game
        Returns game Id for new or existing
     end note
 
@@ -37,26 +36,26 @@
 
     note over React Client, Rails Server
 
-       User provides word input by
-       typing or clicking & clicks
-       button to validate word
+       User types of clicks letters
+       Clicks check word button to validate
     end note
 
     React Client -> Rails Server : POST /games/{id}/words
 
     note over Rails Server, Sqlite3 DB
 
-       Checks for previously saved word
-       for game or validates word against
-       matrix from db using find_word algorithm
+       Checks for previously saved word by game id
+       Validates words using find_word algorithm
     end note
 
     Rails Server -> Sqlite3 DB : Finds or Saves Word
+    Sqlite3 DB -> Rails Server :
 
-    Rails Server -> React Client : HTTP Status 201 | 400
+    Rails Server -> React Client : HTTP Status 201 | 400 | 409
 
     note over React Client, Rails Server
 
        201 created for word found in game
        400 bad request for word NOT found in game
+       409 conflict, word for game exists, word is good
     end note
