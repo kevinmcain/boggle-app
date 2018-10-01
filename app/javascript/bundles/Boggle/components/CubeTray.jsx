@@ -17,7 +17,7 @@ class CubeTray extends React.Component {
     validateWord = (e) => {
 
         // todo this may not be the best choice for browser support
-        var url = 'http://localhost:3000/games/' + this.props.gameId + '/words';
+        var url = 'http://' + window.location.host + '/games/' + this.props.gameId + '/words';
         var data = {
             name: this.props.word.toUpperCase()
         };
@@ -48,7 +48,7 @@ class CubeTray extends React.Component {
         const gameHash = [].concat.apply([], gameMatrix).join('');
 
         // todo this may not be the best choice for browser support
-        var url = 'http://localhost:3000/games';
+        var url = 'http://' + window.location.host + '/games';
 
         var data = {
             game_hash: gameHash,
