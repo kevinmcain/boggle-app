@@ -14,7 +14,7 @@ class Cube extends React.Component {
         this.setState((prevState) => ({
             backgroundColor: prevState.backgroundColor !== 'black' ? 'black' : 'blue'
         }));
-  };
+    };
 
 	render() {
 
@@ -35,7 +35,7 @@ class Cube extends React.Component {
         };
 
     return (
-        <button style={buttonStyle} onClick={() => this.toggleActive()}>{this.props.letter}</button>
+        <button style={buttonStyle} className="btn btn-secondary" onClick={() => this.toggleActive()}>{this.props.letter}</button>
     );
   }
 }

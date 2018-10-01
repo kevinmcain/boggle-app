@@ -92,9 +92,9 @@ class CubeTray extends React.Component {
         let gameMatrix = this.props.gameMatrix;
 
     return (
-        <div>
-            <button type="button" onClick={() => this.generateGame()}> generate new game </button>
-
+    <div className="container">
+        <div className="jumbotron col-md-4">
+            <button type="button" className="btn btn-dark" onClick={() => this.generateGame()}> new game </button>
             <table style={tableStyle}>
                 <tbody>
                     {
@@ -124,17 +124,20 @@ class CubeTray extends React.Component {
                     }
                 </tbody>
             </table>
-            <label htmlFor="name">
-            Word:
-            </label>
-            <input
-            id="name"
-            type="text"
-            value={this.props.word}
-            onChange={(e) => this.props.updateWord(e.target.value)} />
-            <button type="button" onClick={(e) => this.validateWord(e)}>validate word</button>
+            <br />
+            <div className="input-group">
+                <input
+                className="form-control"
+                id="name"
+                type="text"
+                value={this.props.word}
+                onChange={(e) => this.props.updateWord(e.target.value)} />
+                   <span className="input-group-btn">
+                        <button type="button" className="btn btn-dark" onClick={(e) => this.validateWord(e)}>check word</button>
+                   </span>
+            </div>
         </div>
-
+    </div>
     );
   }
 }
