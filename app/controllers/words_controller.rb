@@ -12,7 +12,7 @@ class WordsController < ApplicationController
 
     existing_word = Word.where(:name => name).first
 
-    if existing_word
+    if existing_word && existing_word.game.id == @game.id
         json_response(existing_word, :conflict)
     else
 
