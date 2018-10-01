@@ -28,9 +28,18 @@ class CubeTray extends React.Component {
           headers:{
             'Content-Type': 'application/json'
           }
-        }).then(res => res.json())
-        .then(response => console.log('Success:', JSON.stringify(response)))
-        .catch(error => console.error('Error:', error));
+        }).then(response => {
+            if (response.ok || response.status === 409) {
+                alert('Good word!')
+            }
+            if (response.status === 400) {
+                alert('Word is not found')
+            }
+            return response;
+
+        }).catch(function(error) {
+          console.log(error);
+        });
 
     };
 
@@ -52,13 +61,19 @@ class CubeTray extends React.Component {
           headers:{
             'Content-Type': 'application/json'
           }
-        }).then(res => res.json())
-        .then(response => {
-            console.log('Success:', JSON.stringify(response));
-            this.props.updateGameId(response.id);
-        })
-        .catch(error => console.error('Error:', error));
+        }).then(response => {
+            if (response.ok || response.status === 409) {
 
+                response.json().then(data => {
+                        console.log(JSON.stringify(data));
+                        this.props.updateGameId(data.id);
+                    });
+            }
+            return response;
+
+        }).catch(function(error) {
+            console.log(error);
+        });
     }
 
 	generateGame = () => {
@@ -103,7 +118,6 @@ class CubeTray extends React.Component {
                             const rows = row.map( function( letter, j ) {
 
                                 return (
-
                                         <td key={j}>
                                             <span key={(i*row.length)+j}>
                                                 <Cube letter={letter}/>
@@ -112,12 +126,10 @@ class CubeTray extends React.Component {
                                 )
                             } );
 
-
                             return (
                                 <tr key={i}>
                                     {rows}
                                 </tr>
-
                             )
 
                         } )
