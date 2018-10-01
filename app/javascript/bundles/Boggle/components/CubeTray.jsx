@@ -19,7 +19,7 @@ class CubeTray extends React.Component {
         // todo this may not be the best choice for browser support
         var url = 'http://localhost:3000/games/' + this.props.gameId + '/words';
         var data = {
-            name: this.props.word
+            name: this.props.word.toUpperCase()
         };
 
         fetch(url, {
@@ -130,6 +130,8 @@ class CubeTray extends React.Component {
                 className="form-control"
                 id="name"
                 type="text"
+                style={ { textTransform: "uppercase" } }
+                pattern="[A-Z]{16}"
                 value={this.props.word}
                 onChange={(e) => this.props.updateWord(e.target.value)} />
                    <span className="input-group-btn">
