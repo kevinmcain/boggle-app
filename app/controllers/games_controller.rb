@@ -5,8 +5,15 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    @game = Game.create!(game_params)
-    json_response(@game, :created)
+    existing_game = Game.where(:game_hash => game_params.fetch(:game_hash)).first
+
+    if existing_game
+        json_response(existing_game, :conflict)
+    else
+        @game = Game.create!(game_params)
+        json_response(@game, :created)
+    end
+
   end
 
   # GET /games/:id

@@ -8,19 +8,23 @@ class WordsController < ApplicationController
   # POST /games/:game_id/words
   def create
 
-    # todo there has got to be a better way to throw exceptions without saving
-    @word = Word.new(word_params)
-    unless @word.valid?
-        @game.words.create!(word_params)
-    end
+    name = word_params.fetch(:name)
 
-    word_valid_for_game = game_has_word(@game.json_data, @word.name)
+    existing_word = Word.where(:name => name).first
 
-    if word_valid_for_game
-        @word = @game.words.create!(word_params)
-        json_response(@word, :created)
+    if existing_word
+        json_response(existing_word, :conflict)
     else
-        json_response(@word, :bad_request)
+
+        word_valid_for_game = game_has_word(@game.json_data, name)
+
+        if word_valid_for_game
+            @word = @game.words.create!(word_params)
+            json_response(@word, :created)
+        else
+            json_response(nil, :bad_request)
+        end
+
     end
 
   end

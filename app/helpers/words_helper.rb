@@ -2,6 +2,10 @@ module WordsHelper
 
     def game_has_word(game, word)
 
+        if game.nil? || word.nil? || word.empty?
+            return false
+        end
+
         game_json = JSON.parse(game);
 
         if find_word(game_json, word)

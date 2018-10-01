@@ -38,7 +38,7 @@ RSpec.describe 'Words API' do
       end
 
       it 'returns a failure message' do
-        expect(response.body).to match(/Validation failed: Name can't be blank/)
+        expect(response.body).to match(/param is missing or the value is empty: name/)
       end
     end
   end
