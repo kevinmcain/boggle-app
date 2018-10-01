@@ -1,4 +1,4 @@
-# README
+# BOGGLE
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -48,3 +48,10 @@ Assumptions:
 2. Words using a given letter more than once renders a negative response
 3. No auth user or auth concerns are necessary
 
+![alt text](https://github.com/kevinmcain/boggle-app/blob/master/boggle_app.png)
+
+
+![alt text](https://github.com/kevinmcain/boggle-app/blob/master/generate_and_find_or_save_game.png)
+
+
+![alt text](https://github.com/kevinmcain/boggle-app/blob/master/word_validation.png)
