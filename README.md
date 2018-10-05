@@ -5,49 +5,45 @@ ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin16]
   
 * Rails version 5.2.1
 
-* System dependencies
-  react-on-rails
-  rspec-rails
-  bootstrap
+* Notable dependencies
+  1. react_on_rails
+  2. rspec-rails
+  3. bootstrap
 
-* Configuration
+* How to run the application for the first time
 
-* Database creation & initialization
-  rails db:migrate
+    `$bundle install`
+    
+    `$yarn install`
+    
+    `$rails db:migrate`
+    
+    `$rails server`
 
 * How to run the test suite
-  bundle exec rspec
+
+    `$bundle exec rspec`
 
 * Steps I took to create this project
 
+    ###### Create a new rails project with ReactJS
+
+    `
     $rails new boggle-app --webpack=react
     $cd boggle-app
+    `
 
-    Per, https://www.npmjs.com/package/react-on-rails
-    Added the react_on_rails gem to Gemfile
+    ###### Per, https://www.npmjs.com/package/react-on-rails, added the react_on_rails gem to Gemfile
     gem 'react_on_rails', '11.1.4'
 
-    $bundle install
+    `$bundle install`
 
-    committed changes
+    `$rails generate react_on_rails:install --redux --node`
 
-    rails generate react_on_rails:install --redux --node
-
-    rails server - thing runs!
-
-    followed test tutorial here
+    ###### Followed the handy tutorial below for TDD of API's
     https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
 
-### Assumptions
-
-1. Though recursion is not allowed in production, it is okay for this challenge
-2. Words using a given letter more than once renders a negative response
-3. No user or auth concerns are necessary
-
 ### User Interface
-
-The button clicking for letter selection is current quirky, but is somewhat helpful in testing
-Whatever is in the textbox is what gets used/ sent to the server for validation
 
 ![alt text](https://github.com/kevinmcain/boggle-app/blob/master/boggle_app.png)
 
