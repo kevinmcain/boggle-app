@@ -1,7 +1,7 @@
 # app/controllers/words_controller.rb
 class WordsController < ApplicationController
   include WordsHelper
-  skip_before_action :verify_authenticity_token # todo is this needed when using from app?
+
   before_action :set_game
   before_action :set_game_word, only: [:show, :update, :destroy]
 

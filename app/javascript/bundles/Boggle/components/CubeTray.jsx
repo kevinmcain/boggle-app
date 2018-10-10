@@ -14,11 +14,16 @@ class CubeTray extends React.Component {
         this.generateGame();
     }
 
+    getCsrfToken = () => {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    };
+
     validateWord = (e) => {
 
-        // todo this may not be the best choice for browser support
-        var url = 'http://' + window.location.host + '/games/' + this.props.gameId + '/words';
-        var data = {
+        const token = this.getCsrfToken();
+
+        const url = 'http://' + window.location.host + '/games/' + this.props.gameId + '/words';
+        const data = {
             name: this.props.word.toUpperCase()
         };
 
@@ -26,7 +31,8 @@ class CubeTray extends React.Component {
           method: 'POST',
           body: JSON.stringify(data),
           headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token
           }
         }).then(response => {
             if (response.ok || response.status === 409) {
@@ -47,10 +53,11 @@ class CubeTray extends React.Component {
 
         const gameHash = [].concat.apply([], gameMatrix).join('');
 
-        // todo this may not be the best choice for browser support
-        var url = 'http://' + window.location.host + '/games';
+        const token = this.getCsrfToken();
 
-        var data = {
+        const url = 'http://' + window.location.host + '/games';
+
+        const data = {
             game_hash: gameHash,
             json_data: JSON.stringify(gameMatrix)
         };
@@ -59,7 +66,8 @@ class CubeTray extends React.Component {
           method: 'POST',
           body: JSON.stringify(data),
           headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token
           }
         }).then(response => {
             if (response.ok || response.status === 409) {
